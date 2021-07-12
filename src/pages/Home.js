@@ -2,28 +2,31 @@ import Grid from "@material-ui/core/Grid";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import data from "../data.json";
+import PropTypes from "prop-types";
 
 import Scream from "../components/Scream";
 import Profile from "../components/Profile";
+// redux
+import { connect } from "react-redux";
+import { getScreams } from "../redux/actions/dataActions";
 
-const Home = () => {
-  const [screams, setScreams] = useState(null);
+const mapStateToProps = (state) => {
+  return {
+    data: state.data,
+  };
+};
 
+const Home = (props) => {
+  const {
+    getScreams,
+    data: { screams, loading },
+  } = props;
   //Adding fetched screams to the screams state
   useEffect(() => {
-    setScreams(data.slice(0, 2));
-    // axios
-    //   .get(
-    //     "https://europe-west1-socialape-d081e.cloudfunctions.net/api/screams"
-    //   )
-    //   .then((res) => {
-    //     //Adding only first 20 screams
-    //     setScreams(res.data.slice(0, 20));
-    //   })
-    //   .catch((error) => console.log(error));
+    getScreams();
   }, []);
 
-  let recentScreamsMarkup = screams ? (
+  let recentScreamsMarkup = !loading ? (
     screams.map((scream) => <Scream key={scream.screamId} scream={scream} />)
   ) : (
     <p>Loading....</p>
@@ -41,4 +44,9 @@ const Home = () => {
   );
 };
 
-export default Home;
+Home.propTypes = {
+  getScreams: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired,
+};
+
+export default connect(mapStateToProps, { getScreams })(Home);
