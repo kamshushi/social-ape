@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import MyButton from "../util/MyButton";
 // MUI
 import withStyles from "@material-ui/core/styles/withStyles";
-import ToolTip from "@material-ui/core/ToolTip";
+import ToolTip from "@material-ui/core/Tooltip";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";

@@ -12,10 +12,12 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import PropTypes from "prop-types";
 import ChatIcon from "@material-ui/icons/Chat";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 
 // redux
 import { connect } from "react-redux";
-import { likeScream, UnlikeScream } from "../redux/actions/dataActions";
+import { likeScream, unlikeScream } from "../redux/actions/dataActions";
 
 const styles = {
   card: {
@@ -38,7 +40,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = {
   likeScream,
-  UnlikeScream,
+  unlikeScream,
 };
 
 const Scream = (props) => {
@@ -46,6 +48,7 @@ const Scream = (props) => {
 
   const {
     classes,
+    user,
     scream: {
       body,
       createdAt,
@@ -56,6 +59,38 @@ const Scream = (props) => {
       commentCount,
     },
   } = props;
+
+  const likedScream = () => {
+    if (user.likes && user.likes.find((like) => like.screamId === screamId)) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+  const likeScream = () => {
+    console.log(screamId);
+    props.likeScream(screamId);
+  };
+  const unlikeScream = () => {
+    console.log("unliked");
+    props.unlikeScream(screamId);
+  };
+
+  const likeButton = !user.authenticated ? (
+    <MyButton tip="Like">
+      <Link to="/login">
+        <FavoriteBorder color="primary" />
+      </Link>
+    </MyButton>
+  ) : likedScream() ? (
+    <MyButton tip="Unlike" onClick={unlikeScream}>
+      <FavoriteIcon color="primary" />
+    </MyButton>
+  ) : (
+    <MyButton tip="Like" onClick={likeScream}>
+      <FavoriteBorder color="primary" />
+    </MyButton>
+  );
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -76,12 +111,12 @@ const Scream = (props) => {
           {dayjs(createdAt).fromNow()}
         </Typography>
         <Typography variant="body1">{body}</Typography>
-        {/* {likeButton}
+        {likeButton}
         <span>{likeCount} Likes</span>
         <MyButton tip="comments" placement="top">
           <ChatIcon color="primary" />
         </MyButton>
-        <span>{commentCount} comments</span> */}
+        <span>{commentCount} comments</span>
       </CardContent>
     </Card>
   );

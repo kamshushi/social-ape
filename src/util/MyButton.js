@@ -11,7 +11,6 @@ const MyButton = ({
   btnClassName,
   tipClassName,
 }) => {
-  console.log(onClick);
   return (
     <Tooltip title={tip} className={tipClassName} placement={placement}>
       <IconButton onClick={onClick} className={btnClassName}>

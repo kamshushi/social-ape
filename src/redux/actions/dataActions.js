@@ -32,7 +32,7 @@ export const likeScream = (screamId) => (dispatch) => {
 };
 
 // Unlike a scream
-export const UnlikeScream = (screamId) => (dispatch) => {
+export const unlikeScream = (screamId) => (dispatch) => {
   axios
     .get(`/scream/${screamId}/unlike`)
     .then((res) => {
