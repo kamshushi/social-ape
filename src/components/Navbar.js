@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import MyButton from "../util/MyButton";
+import PostScream from "./PostScream";
 // redux
 import { connect } from "react-redux";
 //Material UI Stuff
@@ -25,9 +26,7 @@ const navbar = (props) => {
       <Toolbar className="nav-container">
         {authenticated ? (
           <Fragment>
-            <MyButton tip="Post a scream">
-              <AddIcon color="primary" />
-            </MyButton>
+            <PostScream />
             <Link to="/">
               <MyButton tip="Home">
                 <HomeIcon color="primary" />

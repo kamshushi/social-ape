@@ -2,6 +2,8 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import MyButton from "../util/MyButton";
+import PropTypes from "prop-types";
+import DeleteScream from "./DeleteScream";
 //dayjs stuff
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -10,7 +12,6 @@ import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import PropTypes from "prop-types";
 import ChatIcon from "@material-ui/icons/Chat";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
@@ -23,6 +24,7 @@ const styles = {
   card: {
     display: "flex",
     marginBottom: 20,
+    position: "relative",
   },
   image: {
     minWidth: 200,
@@ -68,11 +70,9 @@ const Scream = (props) => {
     }
   };
   const likeScream = () => {
-    console.log(screamId);
     props.likeScream(screamId);
   };
   const unlikeScream = () => {
-    console.log("unliked");
     props.unlikeScream(screamId);
   };
 
@@ -91,6 +91,11 @@ const Scream = (props) => {
       <FavoriteBorder color="primary" />
     </MyButton>
   );
+
+  const deleteButton =
+    user.authenticated && userHandle === user.credentials.handle ? (
+      <DeleteScream screamId={screamId} />
+    ) : null;
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -107,6 +112,7 @@ const Scream = (props) => {
         >
           {userHandle}
         </Typography>
+        {deleteButton}
         <Typography variant="body2" color="textSecondary">
           {dayjs(createdAt).fromNow()}
         </Typography>
