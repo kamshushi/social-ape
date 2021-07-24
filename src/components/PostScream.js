@@ -26,27 +26,31 @@ const styles = (theme) => {
     ...theme.spreadIt,
     submitButton: {
       position: "relative",
+      float: "right",
+      margin: "5px 0",
     },
     progressSpinner: {
       position: "absolute",
     },
     closeButton: {
       position: "absolute",
-      left: "90%",
-      top: "10%",
+      left: "91%",
+      top: "6%",
     },
   };
 };
 const PostScream = (props) => {
   const [open, setOpen] = useState(false);
   const [body, setBody] = useState({ body: "" });
-  // const [errors, setErrors] = useState({});
+  const {
+    classes,
+    UI: { errors, loading },
+  } = props;
 
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
-    console.log("cleared");
     props.clearErrors();
     setOpen(false);
   };
@@ -58,17 +62,15 @@ const PostScream = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.postScream(body);
-    setBody("");
+    setBody({ body: "" });
   };
-  // useEffect(() => {
-  //   if (!props.UI.errors && !props.UI.loading) {
-  //     handleClose();
-  //   }
-  // }, [props.UI.errors]);
-  const {
-    classes,
-    UI: { errors, loading },
-  } = props;
+  // close dialog after scream is posted
+  useEffect(() => {
+    if (Object.keys(errors).length === 0 && !loading) {
+      setOpen(false);
+    }
+  }, [errors]);
+
   return (
     <Fragment>
       <MyButton onClick={handleOpen} tip="Post a Scream">
@@ -90,7 +92,7 @@ const PostScream = (props) => {
               type="text"
               label="SCREAM!!"
               multiline
-              rows="3"
+              rows="4"
               placeholder="Scream at your fellow apes"
               error={errors.body ? true : false}
               helperText={errors.body}

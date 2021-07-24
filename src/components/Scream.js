@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import MyButton from "../util/MyButton";
 import PropTypes from "prop-types";
 import DeleteScream from "./DeleteScream";
+import ScreamDialog from "./ScreamDialog";
 //dayjs stuff
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -15,7 +16,6 @@ import Typography from "@material-ui/core/Typography";
 import ChatIcon from "@material-ui/icons/Chat";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
-
 // redux
 import { connect } from "react-redux";
 import { likeScream, unlikeScream } from "../redux/actions/dataActions";
@@ -123,6 +123,7 @@ const Scream = (props) => {
           <ChatIcon color="primary" />
         </MyButton>
         <span>{commentCount} comments</span>
+        <ScreamDialog screamId={screamId} userHandle={userHandle} />
       </CardContent>
     </Card>
   );
