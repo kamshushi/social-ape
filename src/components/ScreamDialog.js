@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import MyButton from "../util/MyButton";
 import PropTypes from "prop-types";
 import dayjs from "dayjs";
+import LikeButton from "./LikeButton";
 // MUI
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -17,6 +18,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import UnfoldMore from "@material-ui/icons/UnfoldMore";
+import ChatIcon from "@material-ui/icons/Chat";
 // redux
 import { connect } from "react-redux";
 import { getScream } from "../redux/actions/dataActions";
@@ -40,7 +42,15 @@ const styles = (theme) => ({
     position: "absolute",
     left: "90%",
   },
-  circularProgress: {},
+  spinnerDiv: {
+    textAlign: "center",
+    marginTop: 50,
+    marginBottom: 50,
+  },
+  expandButton: {
+    position: "absolute",
+    left: "90%",
+  },
 });
 
 const ScreamDialog = (props) => {
@@ -69,7 +79,9 @@ const ScreamDialog = (props) => {
   };
 
   const dialogMarkup = loading ? (
-    <CircularProgress className={classes.circularProgress} size={100} />
+    <div className={classes.spinnerDiv}>
+      <CircularProgress size={100} thickness={2} />
+    </div>
   ) : (
     <Grid container spacing={16}>
       <Grid item sm={5}>
@@ -90,6 +102,12 @@ const ScreamDialog = (props) => {
         </Typography>
         <hr className={classes.invisibleSeparator} />
         <Typography variant="body1">{body}</Typography>
+        <LikeButton screamId={screamId} />
+        <span>{likeCount} likes</span>
+        <MyButton tip="Comments">
+          <ChatIcon color="primary" />
+        </MyButton>
+        <span>{commentCount} comments</span>
       </Grid>
     </Grid>
   );

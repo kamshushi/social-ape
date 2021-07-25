@@ -5,6 +5,7 @@ import MyButton from "../util/MyButton";
 import PropTypes from "prop-types";
 import DeleteScream from "./DeleteScream";
 import ScreamDialog from "./ScreamDialog";
+import LikeButton from "./LikeButton";
 //dayjs stuff
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -14,11 +15,9 @@ import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import ChatIcon from "@material-ui/icons/Chat";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
+
 // redux
 import { connect } from "react-redux";
-import { likeScream, unlikeScream } from "../redux/actions/dataActions";
 
 const styles = {
   card: {
@@ -40,10 +39,6 @@ const mapStateToProps = (state) => {
     user: state.user,
   };
 };
-const mapDispatchToProps = {
-  likeScream,
-  unlikeScream,
-};
 
 const Scream = (props) => {
   dayjs.extend(relativeTime);
@@ -61,36 +56,6 @@ const Scream = (props) => {
       commentCount,
     },
   } = props;
-
-  const likedScream = () => {
-    if (user.likes && user.likes.find((like) => like.screamId === screamId)) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-  const likeScream = () => {
-    props.likeScream(screamId);
-  };
-  const unlikeScream = () => {
-    props.unlikeScream(screamId);
-  };
-
-  const likeButton = !user.authenticated ? (
-    <MyButton tip="Like">
-      <Link to="/login">
-        <FavoriteBorder color="primary" />
-      </Link>
-    </MyButton>
-  ) : likedScream() ? (
-    <MyButton tip="Unlike" onClick={unlikeScream}>
-      <FavoriteIcon color="primary" />
-    </MyButton>
-  ) : (
-    <MyButton tip="Like" onClick={likeScream}>
-      <FavoriteBorder color="primary" />
-    </MyButton>
-  );
 
   const deleteButton =
     user.authenticated && userHandle === user.credentials.handle ? (
@@ -117,7 +82,7 @@ const Scream = (props) => {
           {dayjs(createdAt).fromNow()}
         </Typography>
         <Typography variant="body1">{body}</Typography>
-        {likeButton}
+        <LikeButton user={user} screamId={screamId} />
         <span>{likeCount} Likes</span>
         <MyButton tip="comments" placement="top">
           <ChatIcon color="primary" />
@@ -130,15 +95,10 @@ const Scream = (props) => {
 };
 
 Scream.propTypes = {
-  likeScream: PropTypes.func.isRequired,
-  unlikeScream: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,
   scream: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
 };
 
 //this makes me access a classes object in this component's props
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(Scream));
+export default connect(mapStateToProps)(withStyles(styles)(Scream));

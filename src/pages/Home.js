@@ -27,7 +27,9 @@ const Home = (props) => {
   }, []);
 
   let recentScreamsMarkup = !loading ? (
-    screams.map((scream) => <Scream key={scream.screamId} scream={scream} />)
+    screams
+      .slice(0, 20)
+      .map((scream) => <Scream key={scream.screamId} scream={scream} />)
   ) : (
     <p>Loading....</p>
   );
