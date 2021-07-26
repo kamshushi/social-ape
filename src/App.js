@@ -10,7 +10,7 @@ import store from "./redux/store";
 import { SET_AUTHENTICATED } from "./redux/actionTypes";
 import { logoutUser, getUserData } from "./redux/actions/userActions";
 //Components
-import Navbar from "./components/Navbar";
+import Navbar from "./components/layout/Navbar";
 import AuthRoute from "./util/AuthRoute";
 //Pages
 import Home from "./pages/Home";
@@ -26,7 +26,7 @@ if (token) {
   const decodedToken = jwtDecode(token);
   console.log(decodedToken);
   if (decodedToken.exp * 1000 < Date.now()) {
-    (logoutUser());
+    logoutUser();
     // window.location.href = "/login";
   } else {
     store.dispatch({ type: SET_AUTHENTICATED });

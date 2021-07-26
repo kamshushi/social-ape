@@ -1,11 +1,9 @@
 import Grid from "@material-ui/core/Grid";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import data from "../data.json";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 
-import Scream from "../components/Scream";
-import Profile from "../components/Profile";
+import Scream from "../components/scream/Scream";
+import Profile from "../components/profile/Profile";
 // redux
 import { connect } from "react-redux";
 import { getScreams } from "../redux/actions/dataActions";
@@ -28,7 +26,7 @@ const Home = (props) => {
 
   let recentScreamsMarkup = !loading ? (
     screams
-      .slice(0, 20)
+      .slice(0, 100)
       .map((scream) => <Scream key={scream.screamId} scream={scream} />)
   ) : (
     <p>Loading....</p>

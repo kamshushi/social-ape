@@ -1,7 +1,7 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
-import MyButton from "../util/MyButton";
+import MyButton from "../../util/MyButton";
 import PropTypes from "prop-types";
 import DeleteScream from "./DeleteScream";
 import ScreamDialog from "./ScreamDialog";

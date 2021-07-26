@@ -1,10 +1,10 @@
 import React, { Fragment, useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import MyButton from "../util/MyButton";
+import MyButton from "../../util/MyButton";
 import PropTypes from "prop-types";
 // redux
 import { connect } from "react-redux";
-import { deleteScream } from "../redux/actions/dataActions";
+import { deleteScream } from "../../redux/actions/dataActions";
 // MUI
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
