@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import dayjs from "dayjs";
 import LikeButton from "./LikeButton";
 import Comments from "./Comments";
+import CommentForm from "./CommentForm";
 // MUI
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -18,6 +19,7 @@ import ChatIcon from "@material-ui/icons/Chat";
 // redux
 import { connect } from "react-redux";
 import { getScream } from "../../redux/actions/dataActions";
+import { clearErrors } from "../../redux/actions/uiActions";
 
 const styles = (theme) => ({
   ...theme.spreadIt,
@@ -69,7 +71,9 @@ const ScreamDialog = (props) => {
     props.getScream(props.screamId);
   };
   const handleClose = () => {
+    console.log("closed");
     setOpen(false);
+    props.clearErrors();
   };
 
   const dialogMarkup = loading ? (
@@ -104,6 +108,7 @@ const ScreamDialog = (props) => {
         <span>{commentCount} comments</span>
       </Grid>
       <hr className={classes.visibleSeparator} />
+      <CommentForm screamId={screamId} />
       <Comments comments={comments} />
     </Grid>
   );
@@ -138,6 +143,7 @@ ScreamDialog.propTypes = {
   userHandle: PropTypes.string.isRequired,
   scream: PropTypes.object.isRequired,
   UI: PropTypes.object.isRequired,
+  clearErrors: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => {
   return {
@@ -147,6 +153,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = {
   getScream,
+  clearErrors,
 };
 
 export default connect(
