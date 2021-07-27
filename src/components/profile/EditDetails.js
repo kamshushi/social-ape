@@ -7,7 +7,6 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -35,7 +34,7 @@ const EditDetails = (props) => {
   const { credentials, classes } = props;
   useEffect(() => {
     mapUserDetailsToState(credentials);
-  }, []);
+  }, [credentials]);
   const handleOpen = () => {
     setOpen(true);
     mapUserDetailsToState(credentials);

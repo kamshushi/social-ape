@@ -55,6 +55,7 @@ const Scream = (props) => {
       likeCount,
       commentCount,
     },
+    openDialog,
   } = props;
 
   const deleteButton =
@@ -63,6 +64,7 @@ const Scream = (props) => {
     ) : null;
   return (
     <Card className={classes.card}>
+      {console.log("y")}
       <CardMedia
         className={classes.image}
         image={userImage}
@@ -88,7 +90,11 @@ const Scream = (props) => {
           <ChatIcon color="primary" />
         </MyButton>
         <span>{commentCount} comments</span>
-        <ScreamDialog screamId={screamId} userHandle={userHandle} />
+        <ScreamDialog
+          screamId={screamId}
+          userHandle={userHandle}
+          openDialog={openDialog}
+        />
       </CardContent>
     </Card>
   );
@@ -98,6 +104,7 @@ Scream.propTypes = {
   user: PropTypes.object.isRequired,
   scream: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
+  openDialog: PropTypes.bool,
 };
 
 //this makes me access a classes object in this component's props

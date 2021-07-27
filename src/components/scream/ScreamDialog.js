@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
 import MyButton from "../../util/MyButton";
@@ -64,6 +64,7 @@ const ScreamDialog = (props) => {
       comments,
     },
     UI: { loading },
+    openDialog,
   } = props;
 
   const handleOpen = () => {
@@ -71,17 +72,22 @@ const ScreamDialog = (props) => {
     props.getScream(props.screamId);
   };
   const handleClose = () => {
-    console.log("closed");
     setOpen(false);
     props.clearErrors();
   };
+
+  useEffect(() => {
+    if (openDialog) {
+      handleOpen();
+    }
+  }, []);
 
   const dialogMarkup = loading ? (
     <div className={classes.spinnerDiv}>
       <CircularProgress size={100} thickness={2} />
     </div>
   ) : (
-    <Grid container spacing={16}>
+    <Grid container spacing={0}>
       <Grid item sm={5}>
         <img src={userImage} alt="Profile" className={classes.profileImage} />
       </Grid>
