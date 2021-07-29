@@ -11,6 +11,7 @@ import {
   SET_SCREAM,
   STOP_LOADING_UI,
   SUBMIT_COMMENT,
+  SET_CURRENT_USER,
 } from "../actionTypes";
 import axios from "axios";
 
@@ -114,22 +115,19 @@ export const submitComment = (screamId, commentData) => (dispatch) => {
     });
 };
 
-// get the User data
-export const getUserData = (userHandle) => (dispatch) => {
+// set the current User data
+export const setCurrentUser = (userHandle) => (dispatch) => {
   dispatch({ type: LOADING_DATA });
   axios
     .get(`/user/${userHandle}`)
     .then((res) => {
-      dispatch({
-        type: SET_SCREAMS,
-        payload: res.data.screams,
-      });
+      dispatch({ type: SET_CURRENT_USER, payload: res.data });
     })
     .catch((err) => {
-      console.log(err);
       dispatch({
-        type: SET_SCREAMS,
-        payload: [],
+        type: SET_CURRENT_USER,
+        payload: { user: null, screams: [] },
       });
+      console.log(err);
     });
 };

@@ -6,6 +6,7 @@ import {
   LOADING_UI,
   SET_UNAUTHENTICATED,
   LOADING_USER,
+  MARK_NOTIFICATIONS_READ,
 } from "../actionTypes";
 
 //login Action
@@ -99,4 +100,13 @@ const setAuthorizationHeader = (token) => {
   localStorage.setItem("FBIdToken", FBIdToken);
   //To attach the token in the headers in every request automatically(This will send the token to every request even the unprotected routes, which is not a problem)
   axios.defaults.headers.common["Authorization"] = FBIdToken;
+};
+
+export const markNotificationsRead = (notificationIds) => (dispatch) => {
+  axios
+    .post("/notifications", notificationIds)
+    .then((res) => {
+      dispatch({ type: MARK_NOTIFICATIONS_READ });
+    })
+    .catch((err) => console.log(err));
 };

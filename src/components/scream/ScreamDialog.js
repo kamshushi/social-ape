@@ -50,7 +50,7 @@ const styles = (theme) => ({
 
 const ScreamDialog = (props) => {
   const [open, setOpen] = useState(false);
-
+  const [oldUrl, setOldUrl] = useState("");
   const {
     classes,
     scream: {
@@ -68,10 +68,19 @@ const ScreamDialog = (props) => {
   } = props;
 
   const handleOpen = () => {
+    let oldPath = window.location.pathname;
+    const newPath = `/users/${props.userHandle}/scream/${props.screamId}`;
+    window.history.pushState(null, null, newPath);
+    if (oldPath === newPath) {
+      oldPath = `/users/${props.userHandle}`;
+    }
+
     setOpen(true);
+    setOldUrl(oldPath);
     props.getScream(props.screamId);
   };
   const handleClose = () => {
+    window.history.pushState(null, null, oldUrl);
     setOpen(false);
     props.clearErrors();
   };

@@ -1,7 +1,7 @@
 import Grid from "@material-ui/core/Grid";
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-
+import ScreamSkeleton from "../util/ScreamSkeleton";
 import Scream from "../components/scream/Scream";
 import Profile from "../components/profile/Profile";
 // redux
@@ -29,7 +29,7 @@ const Home = (props) => {
       .slice(0, 30)
       .map((scream) => <Scream key={scream.screamId} scream={scream} />)
   ) : (
-    <p>Loading....</p>
+    <ScreamSkeleton />
   );
 
   return (

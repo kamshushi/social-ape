@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import MyButton from "../../util/MyButton";
 import PostScream from "../scream/PostScream";
+import Notifications from "./Notifications";
 // redux
 import { connect } from "react-redux";
 //Material UI Stuff
@@ -10,7 +11,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import HomeIcon from "@material-ui/icons/Home";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 
 const mapStateToProps = (state) => {
   return {
@@ -31,9 +31,7 @@ const navbar = (props) => {
                 <HomeIcon color="primary" />
               </MyButton>
             </Link>
-            <MyButton tip="Notifications">
-              <NotificationsIcon color="primary" />
-            </MyButton>
+            <Notifications />
           </Fragment>
         ) : (
           <Fragment>

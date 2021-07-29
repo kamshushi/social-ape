@@ -7,11 +7,16 @@ import {
   POST_SCREAM,
   SET_SCREAM,
   SUBMIT_COMMENT,
+  SET_CURRENT_USER,
 } from "../actionTypes";
 
 const initialState = {
   screams: [],
   scream: {},
+  currentUser: {
+    user: null,
+    screams: [],
+  },
   loading: false,
 };
 
@@ -71,6 +76,12 @@ export default function (state = initialState, action) {
           ...state.scream,
           comments: [action.payload, ...state.scream.comments],
         },
+      };
+    case SET_CURRENT_USER:
+      return {
+        ...state,
+        currentUser: action.payload,
+        loading: false,
       };
     default:
       return {
